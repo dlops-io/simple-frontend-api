@@ -4,7 +4,7 @@
   gather_facts: false
 
   vars:
-    cluster_name: "simple"
+    cluster_name: "simple-frontend"
     machine_type: "n1-standard-1"
     machine_disk_size: 30
     initial_node_count: 2
@@ -180,26 +180,6 @@
       name: nginx-stable
       repo_url: https://helm.nginx.com/stable
     when: cluster_state == "present"
-
-  # - name: "Install nginx-ingress"
-  #   community.kubernetes.helm:
-  #     name: nginx-ingress
-  #     namespace: "{{cluster_name}}-namespace"
-  #     chart_ref: nginx-stable/nginx-ingress
-  #     state: present
-  #   when: cluster_state == "present"
-
-  # - name: "Custom Install nginx config"
-  #   shell: "helm install nginx-ingress nginx-stable/nginx-ingress --namespace {{cluster_name}}-namespace --set controller.config.proxy-body-size=50m"
-  #   when: cluster_state == "present"
-
-  # - name: "Custom Install nginx config"
-  #   shell: "helm install nginx-ingress nginx-stable/nginx-ingress --namespace {{cluster_name}}-namespace --values ./nginx-ingress.values.yml"
-  #   when: cluster_state == "present"
-
-  # - name: "Custom Install nginx config"
-  #   shell: helm install nginx-ingress nginx-stable/nginx-ingress --namespace {{cluster_name}}-namespace --set nginx.ingress.annotations[0].key="kubernets.io/proxy-body-size" --set nginx.ingress.annotations[0].value=50m
-  #   when: cluster_state == "present"
 
   - name: "Install nginx-ingress"
     community.kubernetes.helm:
